@@ -122,3 +122,5 @@ if __name__ == "__main__":
 
     save_json_report()
     print("🏁 Gata! Raportul JSON a fost generat.")
+
+# Code is made and updated by Keso
