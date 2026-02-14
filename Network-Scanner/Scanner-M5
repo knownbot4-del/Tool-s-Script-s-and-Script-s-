@@ -26,9 +26,9 @@ def detect_os(ip):
         ttl_match = re.search(r"ttl=(\d+)", output.lower())
         if ttl_match:
             ttl = int(ttl_match.group(1))
-            if ttl <= 64: return "🐧 Linux/Unix (Raspberry Pi / Lubuntu)"
-            if ttl <= 128: return "🪟 Windows (Nagasaki / Perla-i3)"
-            if ttl <= 255: return "🌐 Network Device (Cisco/Router)"
+            if ttl <= 64: return "🐧 Linux/Unix "
+            if ttl <= 128: return "🪟 Windows "
+            if ttl <= 255: return "🌐 Network Device"
     except:
         return "❓ Unknown OS (Host unreachable/ICMP Blocked)"
     return "❓ Unknown OS"
