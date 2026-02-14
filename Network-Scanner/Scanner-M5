@@ -10,6 +10,29 @@ numepc = "127.0.0.1"  # Sau IP-ul pe care vrei sa-l scanezi
 
 # --- FUNCTII UTILS ---
 
+def detect_os(ip):
+    """
+    Trimite un singur pachet (ping) pentru a citi valoarea TTL
+    """
+    try:
+        # Folosim o comandă de sistem pentru un singur ping
+        import subprocess
+        # -c 1 pentru Linux, -n 1 pentru Windows
+        output = subprocess.check_output(f"ping -c 1 {ip}", shell=True, stderr=subprocess.STDOUT).decode()
+        
+        # Căutăm valoarea TTL în output
+        import re
+        ttl_match = re.search(r"ttl=(\d+)", output.lower())
+        
+        if ttl_match:
+            ttl = int(ttl_match.group(1))
+            if ttl <= 64: return "🐧 Linux/Unix (Raspberry Pi / Lubuntu)"
+            if ttl <= 128: return "🪟 Windows (Nagasaki / Perla-i3)"
+            if ttl <= 255: return "🌐 Network Device (Cisco/Router)"
+    except:
+        return "❓ Unknown OS (Host unreachable or blocking ICMP)"
+    return "❓ Unknown OS"
+
 def send_msg(text):
     """Trimite notificări pe Discord"""
     try:
