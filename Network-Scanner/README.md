@@ -10,10 +10,10 @@ A professional-grade network radar and port scanner with **Multi-threading** and
 * **Discord Integration:** Real-time alerts via Webhooks.
 
 ### 🛠️ Planned for Version 3 [V3]
-- [ ] Advanced Banner Grabbing (HTTP, SSH, MySQL probes).
-- [ ] Expand VULN_DB to 30+ known software vulnerabilities.
-- [ ] Automated OS Detection (Fingerprinting).
-- [ ] JSON logging for professional reporting.
+- [x] Advanced Banner Grabbing (HTTP, SSH, MySQL probes).
+- [x] Expand VULN_DB to 30+ known software vulnerabilities.
+- [x] Automated OS Detection (Fingerprinting).
+- [x] JSON logging for professional reporting.
 
 ## 🛠️ Setup & Usage
 1. **Clone the repository:**
