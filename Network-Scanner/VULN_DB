@@ -1,42 +1,60 @@
-# vuln_db.py
+# VULN_DB.py - Enciclopedia de Vulnerabilități [V3.5 - Massive Update]
 
 VULN_DB = {
-    21: {
-        "service": "FTP",
-        "description": "Protocol nesecurizat. Datele (user/parola) circula in clar.",
-        "risk": "HIGH",
-        "cve": "CVE-1999-0052 (Insecure login)"
-    },
-    22: {
-        "service": "SSH",
-        "description": "Posibil atac de tip Brute Force daca parola e slaba.",
-        "risk": "MEDIUM",
-        "cve": "General SSH Brute Force Risk"
-    },
-    23: {
-        "service": "Telnet",
-        "description": "Protocol extrem de vechi si periculos. Tot traficul e vizibil.",
-        "risk": "CRITICAL",
-        "cve": "CVE-1999-0619"
-    },
-    80: {
-        "service": "HTTP",
-        "description": "Server Web. Verifica daca are directoare expuse (/admin, /config).",
-        "risk": "LOW/MEDIUM",
-        "cve": "Directory Traversal Risks"
-    },
-    445: {
-        "service": "SMB",
-        "description": "Vulnerabil la exploit-uri de tip EternalBlue (WannaCry).",
-        "risk": "CRITICAL",
-        "cve": "CVE-2017-0144 (MS17-010)"
-    },
-    3306: {
-        "service": "MySQL",
-        "description": "Baza de date expusa. Risc de SQL Injection sau acces neautorizat.",
-        "risk": "HIGH",
-        "cve": "CVE-2012-2122"
-    }
-}
+    # --- INFRASTRUCTURĂ ȘI ACCES REMOTE ---
+    21: {"service": "FTP", "risk": "HIGH", "description": "Transfer necriptat. Risc de interceptare.", "cve": "CVE-1999-0052"},
+    22: {"service": "SSH", "risk": "LOW/MEDIUM", "description": "Verifică versiunea pentru User Enumeration.", "cve": "CVE-2018-15473"},
+    23: {"service": "Telnet", "risk": "CRITICAL", "description": "TOTUL ESTE IN CLAR. Dezactivează imediat!", "cve": "CVE-1999-0619"},
+    25: {"service": "SMTP", "risk": "MEDIUM", "description": "Risc de Spam Relay sau Mail Spoofing.", "cve": "CVE-2010-4344"},
+    53: {"service": "DNS", "risk": "MEDIUM", "description": "Risc de Cache Poisoning sau Zone Transfer.", "cve": "CVE-2006-0987"},
+    69: {"service": "TFTP", "risk": "HIGH", "description": "Trivial FTP. Fără autentificare, expune fișiere.", "cve": "CVE-1999-0498"},
 
-# soon to come more VULN's
+    # --- WINDOWS & ENTERPRISE ---
+    88: {"service": "Kerberos", "risk": "MEDIUM", "description": "Atacuri de tip Golden Ticket / AS-REP Roasting.", "cve": "AD Security Risk"},
+    111: {"service": "RPCBind", "risk": "MEDIUM", "description": "Expune informații despre serviciile RPC.", "cve": "CVE-2017-8779"},
+    135: {"service": "MSRPC", "risk": "LOW", "description": "Endpoint Mapper. Info gathering.", "cve": "Information Disclosure"},
+    137: {"service": "NetBIOS-NS", "risk": "MEDIUM", "description": "Risc de NBNS Spoofing (LLMNR/NBT-NS).", "cve": "MITM Risk"},
+    139: {"service": "SMB-NetBIOS", "risk": "HIGH", "description": "Partajare fișiere veche. Vulnerabil.", "cve": "Information Leak"},
+    389: {"service": "LDAP", "risk": "MEDIUM", "description": "Expune structura Active Directory.", "cve": "Information Disclosure"},
+    445: {"service": "SMB-Direct", "risk": "CRITICAL", "description": "Vulnerabil la EternalBlue / SMBGhost.", "cve": "CVE-2020-0796"},
+    593: {"service": "HTTP-RPC-EPMAP", "risk": "MEDIUM", "description": "Vulnerabilități în managementul RPC.", "cve": "CVE-2021-31166"},
+    3268: {"service": "LDAP-Global-Catalog", "risk": "MEDIUM", "description": "Expune date din tot restul domeniului AD.", "cve": "AD Recon"},
+    3389: {"service": "RDP", "risk": "CRITICAL", "description": "Risc de BlueKeep sau Brute Force.", "cve": "CVE-2019-0708"},
+    5985: {"service": "WinRM (HTTP)", "risk": "HIGH", "description": "PowerShell Remote Management. Risc RCE.", "cve": "Lateral Movement"},
+
+    # --- BAZE DE DATE & CLOUD ---
+    1433: {"service": "MSSQL", "risk": "HIGH", "description": "Microsoft SQL. Risc de SQL Injection.", "cve": "CVE-2000-1209"},
+    1521: {"service": "Oracle-DB", "risk": "HIGH", "description": "TNS Listener. Risc de acces neautorizat.", "cve": "CVE-2012-1675"},
+    3306: {"service": "MySQL", "risk": "HIGH", "description": "Risc de SQL Injection și Dump de date.", "cve": "CVE-2012-2122"},
+    5432: {"service": "PostgreSQL", "risk": "MEDIUM", "description": "Verifică permisiunile în pg_hba.conf.", "cve": "CVE-2019-9193"},
+    6379: {"service": "Redis", "risk": "CRITICAL", "description": "Bază de date în memorie fără parolă.", "cve": "Unauthenticated RCE"},
+    9200: {"service": "Elasticsearch", "risk": "HIGH", "description": "Expune log-uri și date sensibile.", "cve": "CVE-2015-1427"},
+    27017: {"service": "MongoDB", "risk": "HIGH", "description": "Risc de Ransomware (baze de date șterse).", "cve": "Data Exposure"},
+
+    # --- WEB, DEV & MANAGEMENT ---
+    80: {"service": "HTTP", "risk": "LOW", "description": "Verifică directoare /admin, /backup, /.git.", "cve": "Web Vulnerabilities"},
+    443: {"service": "HTTPS", "risk": "LOW", "description": "Verifică versiunile TLS și certificatele.", "cve": "SSL/TLS Misconfig"},
+    2375: {"service": "Docker-API", "risk": "CRITICAL", "description": "Permite controlul total al Docker-ului!", "cve": "Container Escape"},
+    5000: {"service": "UPnP/Flask", "risk": "MEDIUM", "description": "Servere de dev expuse. Risc de RCE.", "cve": "CVE-2021-4356"},
+    8080: {"service": "HTTP-Alt/Jenkins", "risk": "HIGH", "description": "Interfețe de management nesecurizate.", "cve": "CVE-2017-1000353"},
+    8443: {"service": "HTTPS-Alt", "risk": "MEDIUM", "description": "Adesea folosit pentru admin consoles.", "cve": "Management Access"},
+    9000: {"service": "Portainer/PHP-FPM", "risk": "HIGH", "description": "Risc de execuție cod de la distanță.", "cve": "CVE-2019-11043"},
+
+    # --- IoT, INDUSTRIAL & MULTIMEDIA ---
+    1883: {"service": "MQTT", "risk": "HIGH", "description": "Protocol Smart Home/IoT fără parolă.", "cve": "Privacy Leak"},
+    1900: {"service": "UPnP", "risk": "MEDIUM", "description": "Descoperire dispozitive. Risc de DDoS.", "cve": "CVE-2020-12695"},
+    5060: {"service": "SIP (VoIP)", "risk": "MEDIUM", "description": "Interceptare apeluri sau fraude telefonice.", "cve": "VoIP Exploits"},
+    554: {"service": "RTSP", "risk": "HIGH", "description": "Stream-uri video (Camere IP) expuse.", "cve": "CWE-287 (Auth Failure)"},
+    5900: {"service": "VNC", "risk": "HIGH", "description": "Acces remote grafic. Risc de interceptare.", "cve": "CVE-2006-2369"},
+    10000: {"service": "Webmin", "risk": "CRITICAL", "description": "Management server Linux. Risc Backdoor.", "cve": "CVE-2019-15107"},
+
+    # --- SEMNĂTURI DE BANNER (VERSION MATCHING) ---
+    "Apache/2.4.49": "🚨 [RCE] Path Traversal în Apache (CVE-2021-41773)",
+    "vsftpd 2.3.4": "🚨 [BACKDOOR] Versiune celebră cu backdoor!",
+    "OpenSSH_7.2p2": "🚨 [AUTH] User enumeration vulnerabilitate.",
+    "PHP/5.6": "🚨 [DEPRECATED] Versiune PHP expirată și nesigură.",
+    "nginx/1.14.0": "🚨 [EXPLOIT] Vulnerabilități vechi de buffer overflow.",
+    "SMBv1": "🚨 [DANGER] Protocol SMBv1 detectat (EternalBlue).",
+    "IIS/6.0": "🚨 [ANCIENT] Server Windows 2003. Risc critic RCE.",
+    "WordPress/5.0": "🚨 [CMS] Versiune WordPress veche și vulnerabilă."
+}
