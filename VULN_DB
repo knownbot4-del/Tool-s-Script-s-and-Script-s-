@@ -1,0 +1,42 @@
+# vuln_db.py
+
+VULN_DB = {
+    21: {
+        "service": "FTP",
+        "description": "Protocol nesecurizat. Datele (user/parola) circula in clar.",
+        "risk": "HIGH",
+        "cve": "CVE-1999-0052 (Insecure login)"
+    },
+    22: {
+        "service": "SSH",
+        "description": "Posibil atac de tip Brute Force daca parola e slaba.",
+        "risk": "MEDIUM",
+        "cve": "General SSH Brute Force Risk"
+    },
+    23: {
+        "service": "Telnet",
+        "description": "Protocol extrem de vechi si periculos. Tot traficul e vizibil.",
+        "risk": "CRITICAL",
+        "cve": "CVE-1999-0619"
+    },
+    80: {
+        "service": "HTTP",
+        "description": "Server Web. Verifica daca are directoare expuse (/admin, /config).",
+        "risk": "LOW/MEDIUM",
+        "cve": "Directory Traversal Risks"
+    },
+    445: {
+        "service": "SMB",
+        "description": "Vulnerabil la exploit-uri de tip EternalBlue (WannaCry).",
+        "risk": "CRITICAL",
+        "cve": "CVE-2017-0144 (MS17-010)"
+    },
+    3306: {
+        "service": "MySQL",
+        "description": "Baza de date expusa. Risc de SQL Injection sau acces neautorizat.",
+        "risk": "HIGH",
+        "cve": "CVE-2012-2122"
+    }
+}
+
+# soon to come more VULN's
